@@ -1,8 +1,7 @@
 #!/usr/bin/python3
-import os
 import re
-import sys
 import string
+from collections import Counter
 
 def read_file(file):
     words = []
