@@ -7,10 +7,11 @@ def read_file(file):
     words = []
     with open(file,'r') as f:
         for line in f:
-            #for word in re.split(r"--\s|\n",line):
-            for word in line.split():
+            for word in re.split(r"--|\s|\n",line):
+            #for word in line.split():
                 word = word.strip(string.punctuation)
                 words.append(word)
+    words = list(filter(None, words))
     return words
 
 def occurrence(file):
