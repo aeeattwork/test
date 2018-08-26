@@ -3,13 +3,12 @@ import re
 import string
 from collections import Counter
 
-def read_file(file):
+def read_txt(file):
     words = []
     with open(file,'r') as f:
         for line in f:
             for word in re.split(r"--|\s|\n",line):
-            #for word in line.split():
-                word = word.strip(string.punctuation)
+                word = word.strip(string.punctuation).lower()
                 words.append(word)
     words = list(filter(None, words))
     return words
