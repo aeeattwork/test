@@ -1,5 +1,4 @@
 # test
-test solution
 
 v 1.0.0
 - "--" sign is treated as punctuation.
@@ -11,3 +10,7 @@ v 1.0.0
     --- input function has to be modified to accept new extension
   -- New files could be added for processing their content:
     --- All functions are designed to process as many files as the user wishes. Currently, you can add new files to the code into the             input function. For processing mass amount of files at once, you only need to change the input function accordingly.
+
+unittest_of_unique_values
+- Testing whether there is any duplicate in the total of the three sets of unique values from the three different files.
+- Requires input from user: path of input files.
