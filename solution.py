@@ -13,6 +13,22 @@ def read_txt(file):
     words = list(filter(None, words))
     return words
 
+def read_docx(file):
+    try:
+        from docx import Document
+    except:
+        print("Cannot import module")
+        exit()
+    words = []
+    doc = Document(file)
+    for p in doc.paragraphs:
+        line = p.text
+        for word in re.split(r"--|\s|\n",line):
+            word = word.strip(string.punctuation).lower()
+            words.append(word)
+    words = list(filter(None, words))
+    return words
+
 def occurrence(file):
     output = read_file(file)
     number_of_occurrence = Counter(output)
