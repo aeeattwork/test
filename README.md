@@ -3,7 +3,7 @@ test solution
 
 v 1.0.0
 - "--" sign is treated as punctuation.
-- All words are converted to lowercase: lowercase or uppercase words are not being distinquished.
+- All words are converted to lowercase: lowercase and uppercase words are not being distinquished.
 - Possible ways of extending the program:
   -- New file extensions could be added with very little change in the code. The following has to be changed:
     --- Possibly new function is required to process content of a file with a new extension
