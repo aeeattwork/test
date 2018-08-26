@@ -34,30 +34,69 @@ def occurrence(read):
     most_popular = Counter(read).most_common(10)
     return (number_of_occurrence, most_popular)
 
-def main():
-    #file1 = input('Enter file_1 root: ')
-    #file2 = input('Enter file_2 root: ')
-    #file3 = input('Enter file_3 root: ')
-    file1 = "D:\Python\TEST\\avid_python_test\\file_1.txt"
-    file2 = "D:\Python\TEST\\avid_python_test\\file_2.txt"
-    file3 = "D:\Python\TEST\\avid_python_test\\file_3.txt"
-    oc1, pop1 = occurrence(file1)
-    oc2, pop2 = occurrence(file2)
-    oc3, pop3 = occurrence(file3)
-    files = []
-    f1 = read_file(file1)
-    f2 = read_file(file2)
-    f3 = read_file(file3)
-    matches = set(f1).intersection(f2, f3)
-    unique1 = set(f1).difference(f2,f3)
-    unique2 = set(f2).difference(f1,f3)
-    unique3 = set(f3).difference(f1,f2)
-    print('\n',"The 10 most popular words in file1:",'\n','\n',pop1)
-    print('\n',"The 10 most popular words in file2:",'\n','\n',pop2)
-    print('\n',"The 10 most popular words in file3:",'\n','\n',pop3)
-    print('\n',"Words that can be found in all files:", '\n','\n',matches)
-    print('\n',"Words that can only be found in file1:", '\n','\n',unique1)
-    print('\n',"Words that can only be found in file2:", '\n','\n',unique2)
-    print('\n',"Words that can only be found in file3:", '\n','\n',unique3)
+def inter_and_diff(read_files):
+    matches = list(set.intersection(*map(set, read_files)))
+    unique_values = []
+    ln = len(read_files)
+    n = 0
+    for file in read_files:
+        read_files.remove(file)
+        n += 1
+        unique = list(set(file).difference(*map(set, read_files)))
+        unique = sorted(unique)
+        unique_values.append(unique)
+        read_files.insert(0,file)
+    return (matches,unique_values)
 
-main()
+def input_files():
+    file1 = input('Enter file_1 path: ')
+    while not file1.lower().endswith(('.docx','.txt')):
+        print('Please provide file with one of the following extensions: .docx, .txt')
+        file1 = input('Enter file_1 path: ')
+    file2 = input('Enter file_2 path: ')
+    while not file2.lower().endswith(('.docx','.txt')):
+        print('Please provide file with one of the following extensions: .docx, .txt')
+        file2 = input('Enter file_2 path: ')
+    file3 = input('Enter file_3 path: ')
+    while not file3.lower().endswith(('.docx','.txt')):
+        print('Please provide file with one of the following extensions: .docx, .txt')
+        file3 = input('Enter file_3 path: ')
+    files = [file1,file2,file3]
+    return (files)
+
+def controller():
+    files = input_files()
+    all_files = []
+    for f in files:
+        if f.lower().endswith('.docx'):
+            file = read_docx(f)
+            all_files.append(file)
+        elif f.lower().endswith('.txt'):
+            file = read_txt(f)
+            all_files.append(file)
+    occ = []
+    popu = []
+    for file in all_files:
+        oc, pop = occurrence(file)
+        occ.append(oc)
+        popu.append(pop)
+
+    matches,unique_values = inter_and_diff(all_files)
+    matches = sorted(matches)
+    return (popu,matches,unique_values) 
+
+def output():
+    popu,matches,unique_values = controller()
+    number = 0
+    for pop in popu:
+        number += 1
+        print('\n',"The 10 most popular words in file%s:"%number,'\n','\n',pop)
+
+    print('\n',"Words that can be found in all files:", '\n','\n',matches)
+
+    number = 0
+    for u in unique_values:
+        number += 1
+        print('\n',"Words that can only be found in file%s:"%number, '\n','\n',u)
+
+output()
