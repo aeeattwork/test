@@ -1,6 +1,6 @@
 # test
 
-v 1.0.0
+solution v 1.0.0
 - "--" sign is treated as punctuation.
 - All words are converted to lowercase: lowercase and uppercase words are not being distinquished.
 - Possible ways of extending the program:
